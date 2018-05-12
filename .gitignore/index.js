@@ -27,3 +27,31 @@ bot.on('message', message => {
         console.log("Commande Salut effectuée");
     }
 });
+
+bot.on("guildMemberAdd", member => {
+    member.guild.channels.find("name", "general").send('Bienvenue sur le Serveur des Ninjas Imprévisibles ${member}')
+})
+    
+bot.on("guildMemberRemove", member => {
+    member.guild.channels.find("name", "general").send('${member} nous a quitté... Repose en paix ${member}')
+})
+    
+bot.on('guildMemberAdd', member => {
+    var role = member.guild.roles.find('name', 'LES NINJA');
+    member.addRole(role)
+})
+    
+    if(message.content === prefix + "infodiscord") {
+              var embed = new Discord.RichEmbed()
+              .setDescription("Information du Discord")
+              .addField('Nom du Discord", message.guild.name)
+              .addField("Créé le", message.guild.createdAt)
+              .addField("Tu as rejoins le", message.member.joinedAt)
+              .addField("Utilisateurs sur le discord", message.guild.memberCount)
+              .addColor("0x0000FF")
+    message.channel.sendEmbed(embed)
+              
+              }
+       
+       if(message.content.startsWith(prefix + "Sondage")) {
+           if(message.author.id == "443121310017781761") 
