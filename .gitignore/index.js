@@ -16,6 +16,12 @@ bot.on('message', message => {
         message.channel.sendMessage("Liste des commandes : \n -*help");
     }
 
+bot.on('message', message => {
+    if (message.content === prefix + "Ninja"){
+        message.channel.sendMessage("Woosh!");
+    }
+
+    
     if (message.content === "Salut"){
         message.reply("Salut toi! x)");
         console.log("Commande Salut effectuée");
