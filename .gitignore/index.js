@@ -46,11 +46,11 @@ bot.on('message', message => {
         let modRole = message.guild.roles.find("name", "LES NINJA DE SÉCURITÉ");
         if(!message.member.roles.has(modRole.id)) {
             return message.reply("Tu n'as pas la permission de faire cette commande.").catch(console.error);
-    }
-    const member = message.mentions.members.first();
-    if (!member) return message.reply("Merci de mentionner l'utilisateur à bannir.");
-    member.ban().then(member => {
-        message.reply('${member.user.username} à bien été banni.').catch(console.error);
-        message.guild.channels.find("name", "général").send('**${member.user.username}** à été banni du serveur par **${message.author.username}**.')
-    }).catch(console.error)
-    )})
+        }
+        const member = message.mentions.members.first();
+        if (!member) return message.reply("Merci de mentionner l'utilisateur à bannir.");
+        member.ban().then(member => {
+            message.reply('${member.user.username} à bien été banni.').catch(console.error);
+            message.guild.channels.find("name", "général").send('**${member.user.username}** à été banni du serveur par **${message.author.username}**.')
+        }).catch(console.error)
+}}},)})
