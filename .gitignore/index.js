@@ -65,9 +65,9 @@ bot.on('guildMemberAdd', member => {
            message.guild.channels.find("name", "sondage").sendEmbed(embed)
            .then(function (message) {
                message.react(":white_check_mark")
-               message.react(":x:)
+               message.react(":x:")
            }).catch(function() {
            });
            }else{
-               return message.reply("T'as pas la permission.")
-})
+               return message.reply("Tu n'as pas la permission.")
+})})
