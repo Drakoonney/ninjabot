@@ -51,7 +51,7 @@ bot.on('guildMemberAdd', member => {
               .addColor("0x0000FF")
     message.channel.sendEmbed(embed)
               
-    }
+}
        
     if (message.content.startsWith(prefix + "Sondage")) {
        if(message.author.id == "443121310017781761") 
@@ -70,4 +70,4 @@ bot.on('guildMemberAdd', member => {
            });
            }else{
                return message.reply("T'as pas la permission.")
-    })
+})
