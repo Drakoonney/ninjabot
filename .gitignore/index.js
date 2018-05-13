@@ -17,57 +17,40 @@ bot.on('message', message => {
     }
 
 bot.on('message', message => {
-    if (message.content === prefix + "Ninja"){
-        message.channel.sendMessage("Woosh!");
+    let command = message.content.split(" ")[0];
+    const args = message.content.slice(prefix.length).split(/ +/);
+    command = args.shift().toLowerCase();
+    
+    if (command === "kick") {
+        let modRole = message.guild.roles.find("name", "LES NINJA DE SÉCURITÉ");
+        if(!message.member.roles.has(modRole.id)) {
+            return message.reply("Tu n'as pas la permission de faire cette commande.").catch(console.error);
     }
-
-    
-    if (message.content === "Salut"){
-        message.reply("Salut toi! x)");
-        console.log("Commande Salut effectuée");
+    if(message.mentions.users.size === 0) {
+        return message.reply("Merci de mentionner l'utilisateur à expulser.").catch(console.error);
     }
-});
-
-bot.on("guildMemberAdd", member => {
-    member.guild.channels.find("name", "general").send('Bienvenue sur le Serveur des Ninjas Imprévisibles ${member}')
-})
+    let kickMember = message.guild.member(message.mentions.users.first());
+    if(!kickMember) {
+        return message.reply("Cet utilisateur est introuvable ou impossible à expulser.")
+    }
+    if(!message.guild.member(bot.user).hasPermission("KICK_MEMBERS")) {
+        return message.reply("Je n'ai pas la permission d'expulser des gens.").catch(console.error);
+    }
+    kickMember.kick().then(member => {
+        message.reply('Le Ninja ${member.user.username} à bien été expulsé.').catch(console.error);
+        message.guild.channels.find("name", "général").send('**${member.user.username}** à été expulsé du serveur par **${message.author.username}**.')
+    }).catch(console.error)    
     
-bot.on("guildMemberRemove", member => {
-    member.guild.channels.find("name", "general").send('${member} nous a quitté... Repose en paix ${member}')
-})
-    
-bot.on('guildMemberAdd', member => {
-    var role = member.guild.roles.find('name', 'LES NINJA');
-    member.addRole(role)
-})
-    
-    if(message.content === prefix + "infodiscord") {
-              var embed = new Discord.RichEmbed()
-              .setDescription("Information du Discord")
-              .addField("Nom du Discord", message.guild.name)
-              .addField("Créé le", message.guild.createdAt)
-              .addField("Tu as rejoins le", message.member.joinedAt)
-              .addField("Utilisateurs sur le discord", message.guild.memberCount)
-              .addColor("0x0000FF")
-    message.channel.sendEmbed(embed)
-              
-}
-       
-    if (message.content.startsWith(prefix + "Sondage")) {
-       if(message.author.id == "443121310017781761") 
-           let args = message.content.split(" ").slice(1);
-           let thingToEcho = args.join("")
-           var embed = new Discord.RichEmbed()
-              .setDescription("Sondage")
-              .addField(thingToEcho, "Répondre avec :white_check_mark: ou :x:")
-              .setColor("OxB40404")
-              .setTimestamp()
-           message.guild.channels.find("name", "sondage").sendEmbed(embed)
-           .then(function (message) {
-               message.react(":white_check_mark")
-               message.react(":x:")
-           }).catch(function() {
-           });
-           }else{
-               return message.reply("Tu n'as pas la permission.")
-})})
+                               
+    if (command === "ban") {
+        let modRole = message.guild.roles.find("name", "LES NINJA DE SÉCURITÉ");
+        if(!message.member.roles.has(modRole.id)) {
+            return message.reply("Tu n'as pas la permission de faire cette commande.").catch(console.error);
+    }
+    const member = message.mentions.members.first();
+    if (!member) return message.reply("Merci de mentionner l'utilisateur à bannir.");
+    member.ban().then(member => {
+        message.reply('${member.user.username} à bien été banni.").catch(console.error);
+        message.guild.channels.find("name", "général").send('**${member.user.username}** à été banni du serveur par **${message.author.username}**.')
+    }).catch(console.error)
+    }})
