@@ -44,7 +44,7 @@ bot.on('guildMemberAdd', member => {
     if(message.content === prefix + "infodiscord") {
               var embed = new Discord.RichEmbed()
               .setDescription("Information du Discord")
-              .addField('Nom du Discord", message.guild.name)
+              .addField("Nom du Discord", message.guild.name)
               .addField("Créé le", message.guild.createdAt)
               .addField("Tu as rejoins le", message.member.joinedAt)
               .addField("Utilisateurs sur le discord", message.guild.memberCount)
